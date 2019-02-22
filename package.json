@@ -5,7 +5,13 @@
   "author": "kohei",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/bin/www"
+    "prod": "node ./build/bin/www",
+    "dev": "nodemon ./build/bin/www --ignore src/",
+    "clean": "rm -rf build",
+    "build": "babel src -d build --ignore src/node_modules --copy-files",
+    "watch_build": "babel --watch src -d build --ignore src/node_modules --copy-files",
+    "clean_build": "yarn clean && yarn build",
+    "test": "NODE_ENV='development' mocha --recursive"
   },
   "dependencies": {
     "aws-sdk": "^2.408.0",

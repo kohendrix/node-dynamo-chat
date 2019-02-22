@@ -1,7 +1,7 @@
 /**
  *  Database connection and executing queries
  */
-let Bluebird = require('bluebird'),
+const Bluebird = require('bluebird'),
   mysql = require('mysql2/promise'),
   p = console.log;
 

@@ -1,5 +1,5 @@
-const AWS = require('aws-sdk');
-const config = require('config');
+import AWS from 'aws-sdk';
+import config from 'config';
 const p = console.log;
 AWS.config.logger = console;
 
