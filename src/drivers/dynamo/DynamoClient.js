@@ -1,14 +1,14 @@
 const AWS = require('aws-sdk');
-import config from 'config';
+const config = require('config');
 const p = console.log;
 AWS.config.logger = console;
 
 AWS.config.update({
-  sslEnabled: false,
-  accessKeyId: 'test',
-  secretAccessKey: 'test',
-  region: 'us-east-1',
-  endpoint: 'dynamodb:8000'
+  sslEnabled: config.aws.sslEnabled,
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey,
+  region: config.aws.region,
+  endpoint: config.aws.endpoint
 });
 
 const db = new AWS.DynamoDB();
@@ -93,7 +93,7 @@ async function deleteItem(table_name, key) {
 }
 
 /**
- * MySql2 module error class
+ * module error class
  */
 class DynamoError extends Error {
   constructor(error_object) {
