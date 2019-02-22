@@ -10,8 +10,8 @@ services:
     ports:
       - '3000:3000'
       - '9229:9229'
-    container_name: node_app
     tty: true
+    container_name: node_app
 
   dynamodb:
     image: amazon/dynamodb-local:latest
@@ -21,6 +21,7 @@ services:
     volumes:
       - ./db_data/dynamo:/home/dynamodblocal/data/
     command: -jar DynamoDBLocal.jar -sharedDb -dbPath ./data
+    container_name: dynamodb
 
   mysql:
     image: mysql:5.7
@@ -34,6 +35,7 @@ services:
       MYSQL_DATABASE: test_db
     volumes:
       - ./db_data/mysql:/var/lib/mysql
+    container_name: mysql
 
   redis:
     build: ./dockerfiles/redis
@@ -42,3 +44,4 @@ services:
       - '6739:6739'
     volumes:
       - ./db_data/redis:/data
+    container_name: redis
