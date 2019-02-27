@@ -2,7 +2,9 @@ version: '3'
 
 services:
   app:
-    build: ./dockerfiles/node
+    build:
+      context: .
+      dockerfile: ./dockerfiles/node/Dockerfile
     links:
       - dynamodb
       - mysql
@@ -38,7 +40,9 @@ services:
     container_name: mysql
 
   redis:
-    build: ./dockerfiles/redis
+    build:
+      context: .
+      dockerfile: ./dockerfiles/redis/Dockerfile
     restart: always
     ports:
       - '6739:6739'
