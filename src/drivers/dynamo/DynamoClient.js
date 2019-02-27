@@ -1,5 +1,5 @@
-import AWS from 'aws-sdk';
-import config from 'config';
+const AWS = require('aws-sdk');
+const config = require('config');
 const p = console.log;
 AWS.config.logger = console;
 
@@ -15,15 +15,10 @@ const db = new AWS.DynamoDB();
 
 /**
  * put a single object
- * @param { string } table_name
- * @param { object } item
+ * @param { object } params
  */
-async function putItem(table_name, item) {
+async function putItem(params) {
   try {
-    const params = {
-      TableName: table_name,
-      Item: item
-    };
     return await db.putItem(params).promise();
   } catch (error) {
     throw new DynamoError(error);
@@ -32,17 +27,10 @@ async function putItem(table_name, item) {
 
 /**
  * get by the key
- * @param { string } table_name
- * @param { object } key : schema { 'KEYNAME': { DATA_YPE : 'VALUE' } }
- * @param { string } projection_exp *optional
+ * @param { object } params
  */
-async function getItem(table_name, key, projection_exp) {
+async function getItem(params) {
   try {
-    let params = {
-      TableName: table_name,
-      Key: key
-    };
-    if (projection_exp) params.ProjectionExpression = projection_exp;
     const data = await db.getItem(params).promise();
     return data.Item;
   } catch (error) {
@@ -77,15 +65,10 @@ async function scanTable(params) {
 
 /**
  * delete by the key
- * @param { string } table_name
- * @param { object } key : schema { 'KEYNAME': { DATA_YPE : 'VALUE' } }
+ * @param { object } params
  */
-async function deleteItem(table_name, key) {
+async function deleteItem(params) {
   try {
-    const params = {
-      TableName: table_name,
-      Key: key
-    };
     return await db.deleteItem(params).promise();
   } catch (error) {
     throw new DynamoError(error);
@@ -96,11 +79,17 @@ async function deleteItem(table_name, key) {
  * module error class
  */
 class DynamoError extends Error {
-  constructor(error_object) {
-    super(error_object.message);
-    this.message = error_object.message;
+  constructor(error) {
+    super(error.message);
+    this.message = error.message;
     this.statusCode = 500;
   }
 }
 
-export default { putItem, getItem, queryTable, scanTable, deleteItem };
+module.exports = { 
+  putItem: putItem, 
+  getItem: getItem,
+  queryTable: queryTable,
+  scanTable: scanTable, 
+  deleteItem: deleteItem 
+};
