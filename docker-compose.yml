@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./dockerfiles/node/Dockerfile
+      dockerfile: ./node/Dockerfile
     links:
       - dynamodb
       - mysql
@@ -16,17 +16,20 @@ services:
     container_name: node_app
 
   dynamodb:
-    image: amazon/dynamodb-local:latest
+    build:
+      context: .
+      dockerfile: ./dynamodb/Dockerfile
     restart: always
     ports:
       - '8000:8000'
     volumes:
       - ./db_data/dynamo:/home/dynamodblocal/data/
-    command: -jar DynamoDBLocal.jar -sharedDb -dbPath ./data
     container_name: dynamodb
 
   mysql:
-    image: mysql:5.7
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
     restart: always
     ports:
       - '3306:3306'
@@ -42,7 +45,7 @@ services:
   redis:
     build:
       context: .
-      dockerfile: ./dockerfiles/redis/Dockerfile
+      dockerfile: ./redis/Dockerfile
     restart: always
     ports:
       - '6739:6739'
