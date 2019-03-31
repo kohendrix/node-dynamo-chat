@@ -1,43 +1,52 @@
-'use strict';
+"use strict";
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.app = void 0;
 
-// error handler
+var _logger = require("./commons/util/logger");
+
+var _httpErrors = _interopRequireDefault(require("http-errors"));
+
+var _express = _interopRequireDefault(require("express"));
+
+var _path = _interopRequireDefault(require("path"));
+
+var _cookieParser = _interopRequireDefault(require("cookie-parser"));
+
+var _morgan = _interopRequireDefault(require("morgan"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const p = (0, _logger.logD)(__filename),
+      app = (0, _express.default)(); // view engine setup
+
+exports.app = app;
+app.set('views', _path.default.join(__dirname, 'views'));
+app.set('view engine', 'ejs'); // plugins
+
+app.use((0, _morgan.default)('dev'));
+app.use(_express.default.json());
+app.use(_express.default.urlencoded({
+  extended: false
+}));
+app.use((0, _cookieParser.default)());
+app.use(_express.default.static(_path.default.join(__dirname, 'public'))); // routing
+
+app.use('/', require('./routes/index'));
+app.use('/user', require('./routes/user')); // catch 404 and forward to error handler
+
+app.use(function (req, res, next) {
+  next((0, _httpErrors.default)(404));
+}); // error handler
+
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {}; // render the error page
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-
-module.exports = app;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAudHMiXSwibmFtZXMiOlsicCIsIl9fZmlsZW5hbWUiLCJhcHAiLCJzZXQiLCJwYXRoIiwiam9pbiIsIl9fZGlybmFtZSIsInVzZSIsImV4cHJlc3MiLCJqc29uIiwidXJsZW5jb2RlZCIsImV4dGVuZGVkIiwic3RhdGljIiwicmVxdWlyZSIsInJlcSIsInJlcyIsIm5leHQiLCJlcnIiLCJsb2NhbHMiLCJtZXNzYWdlIiwiZXJyb3IiLCJnZXQiLCJzdGF0dXMiLCJyZW5kZXIiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFDQTs7QUFDQTs7QUFDQTs7QUFDQTs7OztBQUVBLE1BQU1BLENBQUMsR0FBRyxrQkFBS0MsVUFBTCxDQUFWO0FBQUEsTUFDRUMsR0FBRyxHQUFHLHVCQURSLEMsQ0FHQTs7O0FBQ0FBLEdBQUcsQ0FBQ0MsR0FBSixDQUFRLE9BQVIsRUFBaUJDLGNBQUtDLElBQUwsQ0FBVUMsU0FBVixFQUFxQixPQUFyQixDQUFqQjtBQUNBSixHQUFHLENBQUNDLEdBQUosQ0FBUSxhQUFSLEVBQXVCLEtBQXZCLEUsQ0FFQTs7QUFDQUQsR0FBRyxDQUFDSyxHQUFKLENBQVEscUJBQU8sS0FBUCxDQUFSO0FBQ0FMLEdBQUcsQ0FBQ0ssR0FBSixDQUFRQyxpQkFBUUMsSUFBUixFQUFSO0FBQ0FQLEdBQUcsQ0FBQ0ssR0FBSixDQUFRQyxpQkFBUUUsVUFBUixDQUFtQjtBQUFFQyxFQUFBQSxRQUFRLEVBQUU7QUFBWixDQUFuQixDQUFSO0FBQ0FULEdBQUcsQ0FBQ0ssR0FBSixDQUFRLDRCQUFSO0FBQ0FMLEdBQUcsQ0FBQ0ssR0FBSixDQUFRQyxpQkFBUUksTUFBUixDQUFlUixjQUFLQyxJQUFMLENBQVVDLFNBQVYsRUFBcUIsUUFBckIsQ0FBZixDQUFSLEUsQ0FFQTs7QUFDQUosR0FBRyxDQUFDSyxHQUFKLENBQVEsR0FBUixFQUFhTSxPQUFPLENBQUMsZ0JBQUQsQ0FBcEI7QUFDQVgsR0FBRyxDQUFDSyxHQUFKLENBQVEsT0FBUixFQUFpQk0sT0FBTyxDQUFDLGVBQUQsQ0FBeEIsRSxDQUVBOztBQUNBWCxHQUFHLENBQUNLLEdBQUosQ0FBUSxVQUFTTyxHQUFULEVBQWNDLEdBQWQsRUFBbUJDLElBQW5CLEVBQXlCO0FBQy9CQSxFQUFBQSxJQUFJLENBQUMseUJBQVksR0FBWixDQUFELENBQUo7QUFDRCxDQUZELEUsQ0FJQTs7QUFDQWQsR0FBRyxDQUFDSyxHQUFKLENBQVEsVUFBU1UsR0FBVCxFQUE0QkgsR0FBNUIsRUFBa0RDLEdBQWxELEVBQXlFQyxJQUF6RSxFQUFxRztBQUMzRztBQUNBRCxFQUFBQSxHQUFHLENBQUNHLE1BQUosQ0FBV0MsT0FBWCxHQUFxQkYsR0FBRyxDQUFDRSxPQUF6QjtBQUNBSixFQUFBQSxHQUFHLENBQUNHLE1BQUosQ0FBV0UsS0FBWCxHQUFtQk4sR0FBRyxDQUFDWixHQUFKLENBQVFtQixHQUFSLENBQVksS0FBWixNQUF1QixhQUF2QixHQUF1Q0osR0FBdkMsR0FBNkMsRUFBaEUsQ0FIMkcsQ0FLM0c7O0FBQ0FGLEVBQUFBLEdBQUcsQ0FBQ08sTUFBSixDQUFXTCxHQUFHLENBQUNLLE1BQUosSUFBYyxHQUF6QjtBQUNBUCxFQUFBQSxHQUFHLENBQUNRLE1BQUosQ0FBVyxPQUFYO0FBQ0QsQ0FSRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGxvZywgbG9nRSwgbG9nRCB9IGZyb20gJy4vY29tbW9ucy91dGlsL2xvZ2dlcic7XG5pbXBvcnQgY3JlYXRlRXJyb3IgZnJvbSAnaHR0cC1lcnJvcnMnO1xuaW1wb3J0IGV4cHJlc3MgZnJvbSAnZXhwcmVzcyc7XG5pbXBvcnQgcGF0aCBmcm9tICdwYXRoJztcbmltcG9ydCBjb29raWVQYXJzZXIgZnJvbSAnY29va2llLXBhcnNlcic7XG5pbXBvcnQgbG9nZ2VyIGZyb20gJ21vcmdhbic7XG5pbXBvcnQgeyBFeHByZXNzRXJyb3IgfSBmcm9tICcuLi9zcmMvaW50ZXJmYWNlcy9FeHByZXNzRXJyb3InO1xuY29uc3QgcCA9IGxvZ0QoX19maWxlbmFtZSksXG4gIGFwcCA9IGV4cHJlc3MoKTtcblxuLy8gdmlldyBlbmdpbmUgc2V0dXBcbmFwcC5zZXQoJ3ZpZXdzJywgcGF0aC5qb2luKF9fZGlybmFtZSwgJ3ZpZXdzJykpO1xuYXBwLnNldCgndmlldyBlbmdpbmUnLCAnZWpzJyk7XG5cbi8vIHBsdWdpbnNcbmFwcC51c2UobG9nZ2VyKCdkZXYnKSk7XG5hcHAudXNlKGV4cHJlc3MuanNvbigpKTtcbmFwcC51c2UoZXhwcmVzcy51cmxlbmNvZGVkKHsgZXh0ZW5kZWQ6IGZhbHNlIH0pKTtcbmFwcC51c2UoY29va2llUGFyc2VyKCkpO1xuYXBwLnVzZShleHByZXNzLnN0YXRpYyhwYXRoLmpvaW4oX19kaXJuYW1lLCAncHVibGljJykpKTtcblxuLy8gcm91dGluZ1xuYXBwLnVzZSgnLycsIHJlcXVpcmUoJy4vcm91dGVzL2luZGV4JykpO1xuYXBwLnVzZSgnL3VzZXInLCByZXF1aXJlKCcuL3JvdXRlcy91c2VyJykpO1xuXG4vLyBjYXRjaCA0MDQgYW5kIGZvcndhcmQgdG8gZXJyb3IgaGFuZGxlclxuYXBwLnVzZShmdW5jdGlvbihyZXEsIHJlcywgbmV4dCkge1xuICBuZXh0KGNyZWF0ZUVycm9yKDQwNCkpO1xufSk7XG5cbi8vIGVycm9yIGhhbmRsZXJcbmFwcC51c2UoZnVuY3Rpb24oZXJyOiBFeHByZXNzRXJyb3IsIHJlcTogZXhwcmVzcy5SZXF1ZXN0LCByZXM6IGV4cHJlc3MuUmVzcG9uc2UsIG5leHQ6IGV4cHJlc3MuTmV4dEZ1bmN0aW9uKSB7XG4gIC8vIHNldCBsb2NhbHMsIG9ubHkgcHJvdmlkaW5nIGVycm9yIGluIGRldmVsb3BtZW50XG4gIHJlcy5sb2NhbHMubWVzc2FnZSA9IGVyci5tZXNzYWdlO1xuICByZXMubG9jYWxzLmVycm9yID0gcmVxLmFwcC5nZXQoJ2VudicpID09PSAnZGV2ZWxvcG1lbnQnID8gZXJyIDoge307XG5cbiAgLy8gcmVuZGVyIHRoZSBlcnJvciBwYWdlXG4gIHJlcy5zdGF0dXMoZXJyLnN0YXR1cyB8fCA1MDApO1xuICByZXMucmVuZGVyKCdlcnJvcicpO1xufSk7XG5cbmV4cG9ydCB7IGFwcCB9O1xuIl19

@@ -14,6 +14,8 @@ services:
       - '9229:9229'
     tty: true
     container_name: node_app
+    networks:
+      - mynetwork
 
   dynamodb:
     build:
@@ -23,6 +25,8 @@ services:
     volumes:
       - ./db_data/dynamo:/home/dynamodblocal/data/
     container_name: dynamodb
+    networks:
+      - mynetwork
 
   mysql:
     build:
@@ -37,6 +41,8 @@ services:
     volumes:
       - ./db_data/mysql:/var/lib/mysql
     container_name: mysql
+    networks:
+      - mynetwork
 
   redis:
     build:
@@ -46,3 +52,9 @@ services:
     volumes:
       - ./db_data/redis:/data
     container_name: redis
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

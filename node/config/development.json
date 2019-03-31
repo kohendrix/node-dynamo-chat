@@ -25,7 +25,10 @@
     "sslEnabled": false,
     "accessKeyId": "local",
     "secretAccessKey": "local",
-    "region": "us-east-1",
-    "endpoint": "dynamodb:8000"
+    "region": "local",
+    "endpoint": "dynamodb:8000",
+    "dax": {
+      "endpoints": []
+    }
   }
 }
