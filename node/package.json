@@ -31,7 +31,8 @@
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql2": "^1.6.5",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "bluebird": "^3.5.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
