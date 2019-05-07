@@ -4,7 +4,6 @@
  */
 import { log, logE, logD } from '../../commons/util/logger';
 import { UserType } from '../user/User';
-import { SessionRequest } from './interfaces/SessionRequest';
 const p = logD(__filename);
 
 /**
@@ -14,7 +13,7 @@ const p = logD(__filename);
  * @param uuid
  * @returns
  */
-function storeSession(req: SessionRequest, type: UserType, uuid: string) {
+function storeSession(req: Express.Request, type: UserType, uuid: string) {
   req.session.type = type;
   req.session.uuid = uuid;
   p('session stored');
@@ -26,8 +25,8 @@ function storeSession(req: SessionRequest, type: UserType, uuid: string) {
  * @param cb
  * @returns
  */
-function destroySession(req: SessionRequest, cb: (err?: Error) => void): void {
-  req.sessionStore.destroy(req.session.sessionId, err => {
+function destroySession(req: Express.Request, cb: (err?: Error) => void): void {
+  req.session.destroy(err => {
     if (err) {
       return cb(err);
     } else {
@@ -45,9 +44,9 @@ function destroySession(req: SessionRequest, cb: (err?: Error) => void): void {
  * @param req
  * @returns
  */
-function destroySessionSync(req: SessionRequest): Promise<void> {
+function destroySessionSync(req: Express.Request): Promise<void> {
   return new Promise((res, rej) => {
-    req.sessionStore.destroy(req.session.sessionId, err => {
+    req.session.destroy(err => {
       if (err) {
         return rej(err);
       } else {

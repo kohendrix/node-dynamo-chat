@@ -1,10 +1,13 @@
 import { log, logE, logD } from './commons/util/logger';
 import createError from 'http-errors';
 import express from 'express';
+import session from 'express-session';
+import RedisStore from 'connect-redis';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { ExpressError } from '../src/interfaces/ExpressError';
+const config = require('config');
 const p = logD(__filename),
   app = express();
 
@@ -18,10 +21,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(
+//   session({
+//     secret: 'secretkey',
+//     store: new RedisStore({
+//       host: 'redis',
+//       port: 6379,
+//       prefix: 'sid:',
+//       ttl: 1800,
+//     }),
+//     saveUninitialized: true,
+//   }),
+// );
 
 // routing
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/user'));
+app.use('/chatroom', require('./routes/chatroom'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

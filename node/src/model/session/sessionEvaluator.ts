@@ -1,6 +1,5 @@
 import { log, logE, logD } from '../../commons/util/logger';
 import { UserType } from '../user/User';
-import { FastifySession } from './interfaces/FastifySession';
 const p = logD(__filename);
 
 /**
@@ -9,7 +8,7 @@ const p = logD(__filename);
  * @param session
  * @return
  */
-export function evaluateSession(session: FastifySession): boolean {
+export function evaluateSession(session: Express.Session): boolean {
   // p('session', session);
   switch (session.type) {
     case UserType.Basic:
@@ -27,7 +26,7 @@ export function evaluateSession(session: FastifySession): boolean {
  * At this moment there is nothing really to check.
  * @param session
  */
-function _isBasicValid(session: FastifySession): boolean {
+function _isBasicValid(session: Express.Session): boolean {
   return session.uuid !== undefined;
 }
 
@@ -35,6 +34,6 @@ function _isBasicValid(session: FastifySession): boolean {
  * At this moment there is nothing really to check.
  * @param session
  */
-function _isGoogleValid(session: FastifySession): boolean {
+function _isGoogleValid(session: Express.Session): boolean {
   return session.uuid !== undefined;
 }

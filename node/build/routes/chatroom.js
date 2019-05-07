@@ -1,0 +1,24 @@
+"use strict";
+
+var _express = _interopRequireDefault(require("express"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @route /chatroom
+ */
+const router = _express.default.Router();
+
+const _mock = (req, res, next) => {
+  return;
+}; // chatroom
+
+
+router.get('/:roomId', _mock);
+router.post('/:roomId', _mock);
+router.delete('/:roomId', _mock); // message
+
+router.post('/:roomId/message', _mock);
+router.delete('/:roomId/message', _mock);
+module.exports = router;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9yb3V0ZXMvY2hhdHJvb20udHMiXSwibmFtZXMiOlsicm91dGVyIiwiZXhwcmVzcyIsIlJvdXRlciIsIl9tb2NrIiwicmVxIiwicmVzIiwibmV4dCIsImdldCIsInBvc3QiLCJkZWxldGUiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiOztBQUdBOzs7O0FBSEE7OztBQUtBLE1BQU1BLE1BQU0sR0FBR0MsaUJBQVFDLE1BQVIsRUFBZjs7QUFFQSxNQUFNQyxLQUFLLEdBQUcsQ0FBQ0MsR0FBRCxFQUF1QkMsR0FBdkIsRUFBOENDLElBQTlDLEtBQTRGO0FBQ3hHO0FBQ0QsQ0FGRCxDLENBSUE7OztBQUNBTixNQUFNLENBQUNPLEdBQVAsQ0FBVyxVQUFYLEVBQXVCSixLQUF2QjtBQUNBSCxNQUFNLENBQUNRLElBQVAsQ0FBWSxVQUFaLEVBQXdCTCxLQUF4QjtBQUNBSCxNQUFNLENBQUNTLE1BQVAsQ0FBYyxVQUFkLEVBQTBCTixLQUExQixFLENBRUE7O0FBQ0FILE1BQU0sQ0FBQ1EsSUFBUCxDQUFZLGtCQUFaLEVBQWdDTCxLQUFoQztBQUNBSCxNQUFNLENBQUNTLE1BQVAsQ0FBYyxrQkFBZCxFQUFrQ04sS0FBbEM7QUFFQU8sTUFBTSxDQUFDQyxPQUFQLEdBQWlCWCxNQUFqQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQHJvdXRlIC9jaGF0cm9vbVxuICovXG5pbXBvcnQgZXhwcmVzcyBmcm9tICdleHByZXNzJztcbmltcG9ydCB7IGxvZ2luLCBzaWdudXAgfSBmcm9tICcuLi9taWRkbGV3YXJlL3JlcXVlc3RIYW5kbGVycy9pbmRleCc7XG5jb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpO1xuXG5jb25zdCBfbW9jayA9IChyZXE6IGV4cHJlc3MuUmVxdWVzdCwgcmVzOiBleHByZXNzLlJlc3BvbnNlLCBuZXh0OiBleHByZXNzLk5leHRGdW5jdGlvbik6IFByb21pc2U8dm9pZD4gPT4ge1xuICByZXR1cm47XG59O1xuXG4vLyBjaGF0cm9vbVxucm91dGVyLmdldCgnLzpyb29tSWQnLCBfbW9jayk7XG5yb3V0ZXIucG9zdCgnLzpyb29tSWQnLCBfbW9jayk7XG5yb3V0ZXIuZGVsZXRlKCcvOnJvb21JZCcsIF9tb2NrKTtcblxuLy8gbWVzc2FnZVxucm91dGVyLnBvc3QoJy86cm9vbUlkL21lc3NhZ2UnLCBfbW9jayk7XG5yb3V0ZXIuZGVsZXRlKCcvOnJvb21JZC9tZXNzYWdlJywgX21vY2spO1xuXG5tb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjtcbiJdfQ==
