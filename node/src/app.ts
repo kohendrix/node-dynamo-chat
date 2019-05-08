@@ -21,18 +21,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(
-//   session({
-//     secret: 'secretkey',
-//     store: new RedisStore({
-//       host: 'redis',
-//       port: 6379,
-//       prefix: 'sid:',
-//       ttl: 1800,
-//     }),
-//     saveUninitialized: true,
-//   }),
-// );
+app.use(
+  session({
+    secret: 'secretkey',
+    store: new RedisStore({
+      host: '127.0.0.1',
+      port: 6379,
+      prefix: 'sid:',
+      ttl: 1800,
+    }),
+    saveUninitialized: true,
+  }),
+);
 
 // routing
 app.use('/', require('./routes/index'));
