@@ -24,6 +24,14 @@ declare module "interfaces/ExpressError" {
         status?: number;
     }
 }
+declare module "drivers/redis/redisClient" {
+    import { RedisClient, ClientOpts } from 'redis';
+    /**
+     * A thin wrapper for RedisClient.
+     * @param options
+     */
+    export function getClient(options: ClientOpts): RedisClient;
+}
 declare module "app" {
     const app: import("express-serve-static-core").Express;
     export { app };

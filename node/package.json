@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./build/bin/www",
-    "local": "NODE_ENV='local' DEBUG=app:*,debug:* nodemon ./build/bin/www --ignore src/",
-    "dev": "NODE_ENV='development' DEBUG=app:*,debug:* nodemon ./build/bin/www --ignore src/",
+    "local": "NODE_ENV='local' DEBUG=app:*,debug:* node ./build/bin/www --ignore src/",
+    "dev": "NODE_ENV='development' DEBUG=app:*,debug:* node ./build/bin/www --ignore src/",
     "clean": "rm -rf build && rm -rf types",
     "type-check": "tsc --noEmit",
     "build": "yarn build:types && yarn build:js",

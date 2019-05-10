@@ -2,11 +2,13 @@ import { log, logE, logD } from './commons/util/logger';
 import createError from 'http-errors';
 import express from 'express';
 import session from 'express-session';
-import RedisStore from 'connect-redis';
+import connectRedis from 'connect-redis';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { ExpressError } from '../src/interfaces/ExpressError';
+import { getClient } from './drivers/redis/redisClient';
+const RedisStore = connectRedis(session);
 const config = require('config');
 const p = logD(__filename),
   app = express();
@@ -25,12 +27,14 @@ app.use(
   session({
     secret: 'secretkey',
     store: new RedisStore({
-      host: '127.0.0.1',
-      port: 6379,
+      host: config.redis.host,
+      port: config.redis.port,
+      client: getClient({ host: config.redis.host, port: config.redis.port }),
       prefix: 'sid:',
       ttl: 1800,
     }),
     saveUninitialized: true,
+    resave: false,
   }),
 );
 
@@ -45,7 +49,12 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err: ExpressError, req: express.Request, res: express.Response, next: express.NextFunction) {
+app.use(function(
+  err: ExpressError,
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
