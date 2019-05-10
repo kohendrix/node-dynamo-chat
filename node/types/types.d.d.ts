@@ -218,6 +218,7 @@ declare module "middleware/requestHandlers/login" {
     export class Login {
         constructor();
         postSync: (req: express.Request, res: express.Response, next: express.NextFunction) => Promise<void>;
+        post: (req: express.Request, res: express.Response, next: express.NextFunction) => void;
     }
 }
 declare module "middleware/requestHandlers/signup" {
